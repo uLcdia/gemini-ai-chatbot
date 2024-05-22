@@ -12,11 +12,9 @@ import {
   createStreamableValue
 } from 'ai/rsc'
 
-import { BotCard, BotMessage } from '@/components/stocks'
-
 import { nanoid, sleep } from '@/lib/utils'
 import { saveChat } from '@/app/actions'
-import { SpinnerMessage, UserMessage } from '@/components/stocks/message'
+import { SpinnerMessage, UserMessage, BotCard, BotMessage } from '@/components/message'
 import { Chat } from '../types'
 import { auth } from '@/auth'
 import { CheckIcon, SpinnerIcon } from '@/components/ui/icons'
@@ -210,6 +208,7 @@ async function submitUserMessage(content: string) {
   }
 }
 
+/*
 export async function requestCode() {
   'use server'
 
@@ -294,6 +293,7 @@ export async function validateCode() {
     display: ui.value
   }
 }
+*/
 
 export type Message = {
   role: 'user' | 'assistant' | 'system' | 'function' | 'data' | 'tool'
