@@ -19,19 +19,12 @@ import { saveChat } from '@/app/actions'
 import { SpinnerMessage, UserMessage } from '@/components/stocks/message'
 import { Chat } from '../types'
 import { auth } from '@/auth'
-import { FlightStatus } from '@/components/flights/flight-status'
-import { SelectSeats } from '@/components/flights/select-seats'
-import { ListFlights } from '@/components/flights/list-flights'
-import { BoardingPass } from '@/components/flights/boarding-pass'
-import { PurchaseTickets } from '@/components/flights/purchase-ticket'
 import { CheckIcon, SpinnerIcon } from '@/components/ui/icons'
 import { format } from 'date-fns'
 import { experimental_streamText } from 'ai'
 import { google } from 'ai/google'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { z } from 'zod'
-import { ListHotels } from '@/components/hotels/list-hotels'
-import { Destinations } from '@/components/flights/destinations'
 import { Video } from '@/components/media/video'
 import { rateLimit } from './ratelimit'
 
@@ -184,7 +177,11 @@ async function submitUserMessage(content: string) {
             {
               id: nanoid(),
               role: 'assistant',
-              content: textContent
+              content: textContent,
+              display: {
+                name: 'assistant',
+                props: {}
+              }
             }
           ]
         })
