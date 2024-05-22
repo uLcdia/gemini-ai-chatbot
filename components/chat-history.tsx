@@ -18,7 +18,7 @@ export async function ChatHistory({ userId }: ChatHistoryProps) {
         <h4 className="text-sm font-medium">Chat History</h4>
       </div>
       <div className="mb-2 px-2">
-        <Link
+        <a
           href="/"
           className={cn(
             buttonVariants({ variant: 'outline' }),
@@ -27,7 +27,7 @@ export async function ChatHistory({ userId }: ChatHistoryProps) {
         >
           <IconPlus className="-translate-x-2 stroke-2" />
           New Chat
-        </Link>
+        </a>
       </div>
       <React.Suspense
         fallback={
