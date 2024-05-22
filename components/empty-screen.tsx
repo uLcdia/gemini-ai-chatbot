@@ -20,14 +20,10 @@ export function EmptyScreen() {
           .
         </p>
         <p className="leading-normal text-zinc-900">
-          It uses{' '}
-          <ExternalLink href="https://vercel.com/blog/ai-sdk-3-generative-ui">
-            React Server Components
-          </ExternalLink>{' '}
-          with function calling to mix both text with generative UI responses
-          from Gemini. The UI state is synced through the AI SDK so the model is
-          always aware of your stateful interactions as they happen in the
-          browser.
+          The source code is hosted on{' '}
+          <ExternalLink href="https://github.com/uLcdia/gemini-ai-chatbot">
+            GitHub
+          </ExternalLink>{' '}. This is a pet project made by uLcdia.
         </p>
       </div>
     </div>
