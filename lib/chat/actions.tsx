@@ -167,6 +167,8 @@ async function submitUserMessage(content: string) {
       for await (const delta of result.fullStream) {
         const { textDelta } = delta
 
+        console.log(textDelta)
+
         textContent += textDelta
         messageStream.update(<BotMessage content={textContent} />)
 
