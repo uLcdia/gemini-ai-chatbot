@@ -8,7 +8,7 @@ export function EmptyScreen() {
           Next.js Gemini Chatbot
         </h1>
         <p className="leading-normal text-zinc-900">
-          This is an open source AI chatbot app template built with{' '}
+          This is an open source AI chatbot app built with{' '}
           <ExternalLink href="https://nextjs.org">Next.js</ExternalLink>, the{' '}
           <ExternalLink href="https://sdk.vercel.ai">
             Vercel AI SDK
@@ -18,12 +18,6 @@ export function EmptyScreen() {
             Google Gemini
           </ExternalLink>
           .
-        </p>
-        <p className="leading-normal text-zinc-900">
-          The source code is hosted on{' '}
-          <ExternalLink href="https://github.com/uLcdia/gemini-ai-chatbot">
-            GitHub
-          </ExternalLink>{' '}. This is a pet project made by uLcdia.
         </p>
       </div>
     </div>

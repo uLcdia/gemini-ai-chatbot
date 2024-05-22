@@ -59,7 +59,7 @@ export function Header() {
         <Button asChild size="sm" variant="ghost">
           <a
             target="_blank"
-            href="https://github.com/vercel-labs/gemini-chatbot"
+            href="https://github.com/uLcdia/gemini-ai-chatbot"
             rel="noopener noreferrer"
           >
             <IconGitHub />
