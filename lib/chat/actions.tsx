@@ -167,9 +167,10 @@ async function submitUserMessage(content: string) {
       for await (const delta of result.fullStream) {
         const { textDelta } = delta
 
-        console.log(textDelta)
-
         textContent += textDelta
+
+        console.log(textContent)
+
         messageStream.update(<BotMessage content={textContent} />)
 
         aiState.update({
