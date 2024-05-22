@@ -52,28 +52,11 @@ async function describeImage(imageBase64: string) {
       // attachment as video for demo purposes,
       // add your implementation here to support
       // video as input for prompts.
-      if (imageBase64 === '') {
-        await new Promise(resolve => setTimeout(resolve, 5000))
-
-        text = `
-      The books in this image are:
-
-      1. The Little Prince by Antoine de Saint-Exupéry
-      2. The Prophet by Kahlil Gibran
-      3. Man's Search for Meaning by Viktor Frankl
-      4. The Alchemist by Paulo Coelho
-      5. The Kite Runner by Khaled Hosseini
-      6. To Kill a Mockingbird by Harper Lee
-      7. The Catcher in the Rye by J.D. Salinger
-      8. The Great Gatsby by F. Scott Fitzgerald
-      9. 1984 by George Orwell
-      10. Animal Farm by George Orwell
-      `
-      } else {
+      if (imageBase64 !== '') {
         const imageData = imageBase64.split(',')[1]
 
         const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
-        const prompt = 'List the books in this image.'
+        const prompt = 'Describe this photo.'
         const image = {
           inlineData: {
             data: imageData,
@@ -83,7 +66,7 @@ async function describeImage(imageBase64: string) {
 
         const result = await model.generateContent([prompt, image])
         text = result.response.text()
-        console.log(text)
+        console.log("describeImage" + text)
       }
 
       spinnerStream.done(null)
@@ -167,7 +150,7 @@ async function submitUserMessage(content: string) {
 
         textContent += textDelta
 
-        console.log("console.log: " + textContent)
+        console.log("submitUserMessage: " + textContent)
 
         messageStream.update(<BotMessage content={textContent} />)
 
