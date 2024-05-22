@@ -165,7 +165,7 @@ async function submitUserMessage(content: string) {
       spinnerStream.done(null)
 
       for await (const delta of result.fullStream) {
-        const { textDelta } = delta
+        const { textDelta = '' } = delta
 
         textContent += textDelta
 
@@ -180,11 +180,7 @@ async function submitUserMessage(content: string) {
             {
               id: nanoid(),
               role: 'assistant',
-              content: textContent,
-              display: {
-                name: 'assistant',
-                props: {}
-              }
+              content: textContent
             }
           ]
         })
