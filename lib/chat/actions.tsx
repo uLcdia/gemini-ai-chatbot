@@ -208,93 +208,6 @@ async function submitUserMessage(content: string) {
   }
 }
 
-/*
-export async function requestCode() {
-  'use server'
-
-  const aiState = getMutableAIState()
-
-  aiState.done({
-    ...aiState.get(),
-    messages: [
-      ...aiState.get().messages,
-      {
-        role: 'assistant',
-        content:
-          "A code has been sent to user's phone. They should enter it in the user interface to continue."
-      }
-    ]
-  })
-
-  const ui = createStreamableUI(
-    <div className="animate-spin">
-      <SpinnerIcon />
-    </div>
-  )
-
-  ;(async () => {
-    await sleep(2000)
-    ui.done()
-  })()
-
-  return {
-    status: 'requires_code',
-    display: ui.value
-  }
-}
-
-export async function validateCode() {
-  'use server'
-
-  const aiState = getMutableAIState()
-
-  const status = createStreamableValue('in_progress')
-  const ui = createStreamableUI(
-    <div className="flex flex-col items-center justify-center gap-3 p-6 text-zinc-500">
-      <div className="animate-spin">
-        <SpinnerIcon />
-      </div>
-      <div className="text-sm text-zinc-500">
-        Please wait while we fulfill your order.
-      </div>
-    </div>
-  )
-
-  ;(async () => {
-    await sleep(2000)
-
-    ui.done(
-      <div className="flex flex-col items-center text-center justify-center gap-3 p-4 text-emerald-700">
-        <CheckIcon />
-        <div>Payment Succeeded</div>
-        <div className="text-sm text-zinc-600">
-          Thanks for your purchase! You will receive an email confirmation
-          shortly.
-        </div>
-      </div>
-    )
-
-    aiState.done({
-      ...aiState.get(),
-      messages: [
-        ...aiState.get().messages.slice(0, -1),
-        {
-          role: 'assistant',
-          content: 'The purchase has completed successfully.'
-        }
-      ]
-    })
-
-    status.done('completed')
-  })()
-
-  return {
-    status: status.value,
-    display: ui.value
-  }
-}
-*/
-
 export type Message = {
   role: 'user' | 'assistant' | 'system' | 'function' | 'data' | 'tool'
   content: string
@@ -322,8 +235,6 @@ export type UIState = {
 export const AI = createAI<AIState, UIState>({
   actions: {
     submitUserMessage,
-    requestCode,
-    validateCode,
     describeImage
   },
   initialUIState: [],
