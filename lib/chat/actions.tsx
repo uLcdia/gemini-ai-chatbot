@@ -169,7 +169,7 @@ async function submitUserMessage(content: string) {
 
         textContent += textDelta
 
-        console.log(textContent)
+        console.log("console.log: " + textContent)
 
         messageStream.update(<BotMessage content={textContent} />)
 
