@@ -23,7 +23,7 @@ import { experimental_streamText } from 'ai'
 import { google } from 'ai/google'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { z } from 'zod'
-import { Video } from '@/components/media/video'
+import { Video } from '@/components/video'
 import { rateLimit } from './ratelimit'
 
 const genAI = new GoogleGenerativeAI(
