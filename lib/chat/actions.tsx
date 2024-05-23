@@ -73,6 +73,8 @@ async function describeImage(imageBase64: string) {
       for await (const delta of result.stream) {
         const { textDelta = '' } = delta
 
+        console.log('stream chunk: ', JSON.stringify(delta));
+
         textContent += textDelta
 
         console.log("describeImage: " + textContent)
@@ -80,6 +82,8 @@ async function describeImage(imageBase64: string) {
         messageStream.update(<BotMessage content={textContent} />)
       }
       // console.log("describeImage: " + textContent)
+      const aggregatedResponse = await result.response;
+      console.log('aggregated response: ', JSON.stringify(aggregatedResponse));
 
       console.log("describeImage.done: " + textContent)
 
