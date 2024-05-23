@@ -131,7 +131,7 @@ async function submitUserMessage(content: string) {
     role: message.role,
     content: message.content
   }))
-  // console.log(history)
+  console.log("history: " + history)
 
   const textStream = createStreamableValue('')
   const spinnerStream = createStreamableUI(<SpinnerMessage />)
