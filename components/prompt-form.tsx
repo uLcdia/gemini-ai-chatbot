@@ -106,7 +106,6 @@ export function PromptForm({
           }}
         >
           <IconPlus />
-          <span className="sr-only">New Chat</span>
         </Button>
         {/* </TooltipTrigger>
           <TooltipContent>Add Attachments</TooltipContent>
