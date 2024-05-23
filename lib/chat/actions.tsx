@@ -42,36 +42,45 @@ async function describeImage(imageBase64: string) {
 
   ;(async () => {
     try {
+      // (index 0) metadata, (index 1) actual image data.
+      const imageData = imageBase64.split(',')[1]
+
+      const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
+      const prompt = 'Describe this photo.'
+      const image = {
+        inlineData: {
+          data: imageData,
+          mimeType: 'image/png'
+        }
+      }
+
+      const result = await model.generateContentStream([prompt, image])
+
       let textContent = ''
       spinnerStream.done(null)
 
-      if (imageBase64 !== '') {
-        const imageData = imageBase64.split(',')[1]
+      for await (const delta of result.fullStream) {
+        const { textDelta = '' } = delta
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
-        const prompt = 'Describe this photo.'
-        const image = {
-          inlineData: {
-            data: imageData,
-            mimeType: 'image/png'
-          }
-        }
+        textContent += textDelta
 
-        const result = await model.generateContent([prompt, image])
-
-        textContent = result.response.text()
-
-        // console.log("describeImage: " + textContent)
+        console.log("describeImage: " + textContent)
 
         messageStream.update(<BotMessage content={textContent} />)
       }
-      console.log("describeImage: " + textContent)
+      // console.log("describeImage: " + textContent)
 
-      uiStream.done()
+      console.log("describeImage.done: " + textContent)
+
+      uiStream.done(
+        <BotCard>
+          <img src={`data:image/png;base64,${imageBase64}`} />
+        </BotCard>
+      )
       spinnerStream.done(null)
       messageStream.done(null)
 
-      /* aiState.update({
+      aiState.update({
         ...aiState.get(),
         messages: [
           ...aiState.get().messages,
@@ -81,12 +90,12 @@ async function describeImage(imageBase64: string) {
             content: textContent
           }
         ]
-      }) */
+      })
 
-      aiState.done({
+      /* aiState.done({
         ...aiState.get(),
         interactions: [textContent]
-      })
+      }) */
     } catch (e) {
       console.error(e)
 
