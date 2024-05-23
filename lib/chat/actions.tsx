@@ -64,7 +64,7 @@ async function describeImage(imageBase64: string) {
         contents: [{role: 'user', parts: [textPart, filePart]}],
       } */
   
-
+      
       const result = await model.generateContentStream([prompt, image])
 
       let textContent = ''
@@ -83,13 +83,12 @@ async function describeImage(imageBase64: string) {
 
       console.log("describeImage.done: " + textContent)
 
-      uiStream.update(
+      uiStream.done(
         <BotCard>
           <img src={`${imageBase64}`} />
         </BotCard>
       )
-      spinnerStream.done(null)
-      messageStream.done(null)
+      messageStream.done()
 
       aiState.update({
         ...aiState.get(),
