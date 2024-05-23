@@ -133,7 +133,7 @@ async function submitUserMessage(content: string) {
   }))
   console.log("history: " + history)
 
-  const textStream = createStreamableValue('')
+  // const textStream = createStreamableValue('')
   const spinnerStream = createStreamableUI(<SpinnerMessage />)
   const messageStream = createStreamableUI(null)
   const uiStream = createStreamableUI()
@@ -173,7 +173,7 @@ async function submitUserMessage(content: string) {
       }
 
       uiStream.done()
-      textStream.done()
+      // textStream.done()
       messageStream.done()
     } catch (e) {
       console.error(e)
@@ -182,7 +182,7 @@ async function submitUserMessage(content: string) {
         'The AI got rate limited, please try again later.'
       )
       uiStream.error(error)
-      textStream.error(error)
+      // textStream.error(error)
       messageStream.error(error)
       aiState.done()
     }
