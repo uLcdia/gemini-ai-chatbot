@@ -65,7 +65,13 @@ export function PromptForm({
         try {
           // Submit and get response message
           const responseMessage = await submitUserMessage(value)
-          setMessages(currentMessages => [...currentMessages, responseMessage])
+          setMessages(currentMessages => {
+            // Make a copy of the current messages
+            const newMessages = [...currentMessages]
+            // Replace the last message (the optimistic one) with the actual response
+            newMessages[newMessages.length - 1] = responseMessage
+            return newMessages
+          })
         } catch {
           toast(
             <div className="text-red-600">
