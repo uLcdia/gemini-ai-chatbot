@@ -160,6 +160,7 @@ async function submitUserMessage(content: string) {
         // messageStream.update(<BotMessage content={textContent} />)
       }
       
+      console.log("submitUserMessage.done: " + textContent)
       messageStream.update(<BotMessage content={textContent} />)
 
       aiState.update({
