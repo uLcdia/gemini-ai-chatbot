@@ -45,21 +45,32 @@ async function describeImage(imageBase64: string) {
       // (index 0) metadata, (index 1) actual image data.
       const imageData = imageBase64.split(',')[1]
 
+      // data:image/png;base64, ... base64 image data ... Extract mimetype
+      const imageMimeType = imageBase64.split(',')[0].split(':')[1].split(';')[0]
+
       const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' })
       const prompt = 'Describe this photo.'
       const image = {
         inlineData: {
           data: imageData,
-          mimeType: 'image/png'
+          mimeType: imageMimeType
         }
       }
+
+      /* 
+      const filePart = {inline_data: {data: imageData, mimeType: imageMimeType}}
+      const textPart = {text: 'What is this picture about?'}
+      const request = {
+        contents: [{role: 'user', parts: [textPart, filePart]}],
+      } */
+  
 
       const result = await model.generateContentStream([prompt, image])
 
       let textContent = ''
       spinnerStream.done(null)
 
-      for await (const delta of result.fullStream) {
+      for await (const delta of result.stream) {
         const { textDelta = '' } = delta
 
         textContent += textDelta
@@ -72,9 +83,9 @@ async function describeImage(imageBase64: string) {
 
       console.log("describeImage.done: " + textContent)
 
-      uiStream.done(
+      uiStream.update(
         <BotCard>
-          <img src={`data:image/png;base64,${imageBase64}`} />
+          <img src={`${imageBase64}`} />
         </BotCard>
       )
       spinnerStream.done(null)
