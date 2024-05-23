@@ -158,19 +158,19 @@ async function submitUserMessage(content: string) {
         console.log("submitUserMessage: " + textContent)
 
         messageStream.update(<BotMessage content={textContent} />)
-
-        aiState.update({
-          ...aiState.get(),
-          messages: [
-            ...aiState.get().messages,
-            {
-              id: nanoid(),
-              role: 'assistant',
-              content: textContent
-            }
-          ]
-        })
       }
+      
+      aiState.update({
+        ...aiState.get(),
+        messages: [
+          ...aiState.get().messages,
+          {
+            id: nanoid(),
+            role: 'assistant',
+            content: textContent
+          }
+        ]
+      })
 
       uiStream.done()
       // textStream.done()
