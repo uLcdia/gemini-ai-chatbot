@@ -61,16 +61,17 @@ async function describeImage(imageBase64: string) {
 
         textContent = result.response.text()
 
-        console.log("describeImage: " + textContent)
+        // console.log("describeImage: " + textContent)
 
         messageStream.update(<BotMessage content={textContent} />)
       }
+      console.log("describeImage: " + textContent)
 
       uiStream.done()
       spinnerStream.done(null)
       messageStream.done(null)
 
-      aiState.update({
+      /* aiState.update({
         ...aiState.get(),
         messages: [
           ...aiState.get().messages,
@@ -80,12 +81,12 @@ async function describeImage(imageBase64: string) {
             content: textContent
           }
         ]
-      })
+      }) */
 
-      /* aiState.done({
+      aiState.done({
         ...aiState.get(),
         interactions: [textContent]
-      }) */
+      })
     } catch (e) {
       console.error(e)
 
