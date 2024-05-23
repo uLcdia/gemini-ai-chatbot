@@ -71,7 +71,7 @@ async function describeImage(imageBase64: string) {
       spinnerStream.done(null)
 
       for await (const delta of result.stream) {
-        const { textDelta = '' } = delta
+        const { textDelta = '' } = delta.text
 
         console.log('stream chunk: ', JSON.stringify(delta));
 
