@@ -65,6 +65,7 @@ export function PromptForm({
         try {
           // Submit and get response message
           const responseMessage = await submitUserMessage(value)
+          console.log("responseMessage: " + responseMessage.display)
           setMessages(currentMessages => [...currentMessages, responseMessage])
         } catch {
           toast(
