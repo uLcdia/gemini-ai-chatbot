@@ -36,22 +36,15 @@ async function describeImage(imageBase64: string) {
   await rateLimit()
 
   const aiState = getMutableAIState()
-  const spinnerStream = createStreamableUI(null)
+  const spinnerStream = createStreamableUI(<SpinnerMessage />)
   const messageStream = createStreamableUI(null)
   const uiStream = createStreamableUI()
 
-  uiStream.update(
-    <BotCard>
-      <Video isLoading />
-    </BotCard>
-  )
   ;(async () => {
     try {
-      let text = ''
+      let textContent = ''
+      spinnerStream.done(null)
 
-      // attachment as video for demo purposes,
-      // add your implementation here to support
-      // video as input for prompts.
       if (imageBase64 !== '') {
         const imageData = imageBase64.split(',')[1]
 
@@ -65,23 +58,34 @@ async function describeImage(imageBase64: string) {
         }
 
         const result = await model.generateContent([prompt, image])
-        text = result.response.text()
-        console.log("describeImage" + text)
+
+        textContent = result.response.text()
+
+        console.log("describeImage: " + textContent)
+
+        messageStream.update(<BotMessage content={textContent} />)
       }
 
+      uiStream.done()
       spinnerStream.done(null)
       messageStream.done(null)
 
-      uiStream.done(
-        <BotCard>
-          <Video />
-        </BotCard>
-      )
-
-      aiState.done({
+      aiState.update({
         ...aiState.get(),
-        interactions: [text]
+        messages: [
+          ...aiState.get().messages,
+          {
+            id: nanoid(),
+            role: 'assistant',
+            content: textContent
+          }
+        ]
       })
+
+      /* aiState.done({
+        ...aiState.get(),
+        interactions: [textContent]
+      }) */
     } catch (e) {
       console.error(e)
 
