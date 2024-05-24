@@ -165,16 +165,16 @@ async function submitUserMessage(content: string) {
 
   ;(async () => {
     try {
-      console.log('Before experimental_streamText')
+      // console.log('Before experimental_streamText')
       const result = await experimental_streamText({
         model: google.generativeAI('models/gemini-1.5-flash-latest'),
         temperature: 0.3,
         system: `You are a helpful assistant.`,
         messages: [...history]
       })
-      console.log('After experimental_streamText')
+      // console.log('After experimental_streamText')
 
-      console.log('Before processing result')
+      // console.log('Before processing result')
       let textContent = ''
       spinnerStream.done(null)
 
@@ -187,7 +187,7 @@ async function submitUserMessage(content: string) {
 
         messageStream.update(<BotMessage content={textContent} />)
       }
-      console.log('After processing result')
+      // console.log('After processing result')
       
       // console.log("submitUserMessage.done: " + textContent)
       // messageStream.update(<BotMessage content={textContent} />)
@@ -207,7 +207,7 @@ async function submitUserMessage(content: string) {
       uiStream.done()
       // textStream.done()
       messageStream.done()
-      console.log('After messageStream.done')
+      // console.log('After messageStream.done')
     } catch (e) {
       console.error(e)
 
