@@ -207,6 +207,7 @@ async function submitUserMessage(content: string) {
       uiStream.done()
       // textStream.done()
       messageStream.done()
+      console.log('After messageStream.done')
     } catch (e) {
       console.error(e)
 
